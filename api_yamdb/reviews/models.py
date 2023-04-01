@@ -13,6 +13,10 @@ class Category(models.Model):
         unique=True
     )
 
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+    
     def __str__(self):
         return self.slug
 
@@ -27,6 +31,10 @@ class Genre(models.Model):
         max_length=50,
         unique=True
     )
+
+    class Meta:
+        verbose_name = 'Жанр'
+        verbose_name_plural = 'Жанры'
 
     def __str__(self):
         return self.slug
@@ -50,6 +58,10 @@ class Title(models.Model):
         null=True,
         verbose_name='Категория'
     )
+
+    class Meta:
+        verbose_name = 'Произведение'
+        verbose_name_plural = 'Произведения'
 
     def __str__(self):
         return self.name
