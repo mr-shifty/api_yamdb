@@ -100,6 +100,7 @@ class Review(models.Model):
     class Meta:
         ordering = ('-pub_date',)
         verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
         constraints = [
             models.UniqueConstraint(
                 fields=('title',
@@ -133,6 +134,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-pub_date']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
     def __str__(self):
         return f'{self.text}'
