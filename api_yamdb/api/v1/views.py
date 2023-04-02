@@ -4,7 +4,7 @@ from rest_framework import permissions, viewsets, mixins, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import LimitOffsetPagination
 
-from reviews.models import Category, Genre, Review, Title
+from reviews.models import Category, Genre, Title
 from .filters import TitleFilter
 from .permissions import (IsAdminUserOrReadOnly)
 from .serializers import (CategorySerializer,
@@ -36,7 +36,7 @@ class GenreViewSet(ListCreateDestroyViewSet):
 
 class TitleViewSet(viewsets.ModelViewSet):
     queryset = Title.objects.annotate(
-        rating=Avg('reviews__score')).order_by('rating')
+        rating=Avg('id')).order_by('rating') #id нужно будет поменять на reviews__score когда будет модель ревью
     serializer_class = TitleSerializer
     permission_classes = [IsAdminUserOrReadOnly]
     pagination_class = LimitOffsetPagination
