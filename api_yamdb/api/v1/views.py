@@ -36,7 +36,7 @@ class GenreViewSet(ListCreateDestroyViewSet):
 
 class TitleViewSet(viewsets.ModelViewSet):
     queryset = Title.objects.annotate(
-        rating=Avg('id')).order_by('rating') #id нужно будет поменять на reviews__score когда будет модель ревью
+        rating=Avg('id')).order_by('rating') # id нужно будет поменять на reviews__score когда будет модель ревью
     serializer_class = TitleSerializer
     permission_classes = [IsAdminUserOrReadOnly]
     pagination_class = LimitOffsetPagination
