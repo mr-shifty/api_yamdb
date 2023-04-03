@@ -1,6 +1,16 @@
 from rest_framework.permissions import SAFE_METHODS, BasePermission
 
 
+class IsAdminOrSuperUser(BasePermission):
+    """Проверка прав администратора."""
+    message = 'Нужны права администратора'
+
+    def has_permission(self, request, view):
+        return (request.user.is_authenticated
+                and (request.user.role == 'admin'
+                     or request.user.is_superuser))
+
+
 class IsAdminUserOrReadOnly(BasePermission):
 
     def has_permission(self, request, view):
