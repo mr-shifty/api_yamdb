@@ -49,7 +49,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         ):
             raise ValidationError('Вы можете оставить только один отзыв!')
         return data
-    
+
     class Meta:
         fields = ('id', 'text', 'author', 'score', 'pub_date',)
         model = Review
