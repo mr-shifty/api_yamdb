@@ -12,9 +12,10 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 
 from api.v1.permissions import IsAdminOrSuperUser
-from api.v1.serializers import (
-    TokenSerializer, UserEditSerializer, UserSerializer, UserSignUpSerializer, UserSignUpValidationSerializer,
-)
+from api.v1.users.serializers import (TokenSerializer, UserEditSerializer,
+                                      UserSerializer, UserSignUpSerializer,
+                                      UserSignUpValidationSerializer)
+
 from api_yamdb.settings import CONTACT_EMAIL
 
 

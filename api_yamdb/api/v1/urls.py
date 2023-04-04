@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 
 from django.urls import include, path
 
-from users.views import RegisterView, TokenView, UserViewSet
+from api.v1.users.views import RegisterView, TokenView, UserViewSet
 
 from .views import (CategoryViewSet, CommentViewSet,
                     GenreViewSet, ReviewViewSet,
