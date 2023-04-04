@@ -9,10 +9,7 @@ from reviews.models import Category, Genre, Title, Review
 from .filters import TitleFilter
 from .permissions import (
     IsAdminUserOrReadOnly,
-    IsAuthorOrReadOnly,
-    IsModeratorOrReadOnly,
-    IsAuthenticatedOrAdmin,
-    IsAdmin,
+    IsAdminModeratorOwnerOrReadOnly,
 )
 from .serializers import (
     CategorySerializer,
@@ -56,7 +53,7 @@ class TitleViewSet(viewsets.ModelViewSet):
         rating=Avg('reviews__score')).order_by('rating')
     serializer_class = TitleSerializer
     permission_classes = [IsAdminUserOrReadOnly]
-    # pagination_class = LimitOffsetPagination
+    pagination_class = LimitOffsetPagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = TitleFilter
 
@@ -75,8 +72,8 @@ class TitleViewSet(viewsets.ModelViewSet):
 
 class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
-    permission_classes = [IsAuthorOrReadOnly, ]
-    
+    permission_classes = [IsAdminModeratorOwnerOrReadOnly, ]
+
     def get_queryset(self):
         title = get_object_or_404(Title, id=self.kwargs.get('title_id'))
         return title.reviews.all()
@@ -88,7 +85,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthorOrReadOnly, IsModeratorOrReadOnly, ]
+    permission_classes = [IsAdminModeratorOwnerOrReadOnly, ]
 
     def get_queryset(self):
         review = get_object_or_404(Review, id=self.kwargs.get('review_id'))
