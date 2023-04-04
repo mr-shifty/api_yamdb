@@ -1,30 +1,28 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404
-from api_yamdb.settings import CONTACT_EMAIL
-from rest_framework import status, viewsets, filters
+from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth.tokens import default_token_generator
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404
 
 from api.v1.permissions import IsAdminOrSuperUser
-from api.v1.serializers import (SignUpSerializer, UserSignUpSerializer, UserSignUpValidationSerializer,
-                                TokenSerializer, UserSerializer,
-                                UserEditSerializer)
+from api.v1.serializers import (
+    TokenSerializer, UserEditSerializer, UserSerializer, UserSignUpSerializer, UserSignUpValidationSerializer,
+)
+from api_yamdb.settings import CONTACT_EMAIL
 
-from .utils import generate_confirmation_code, send_confirmation_code
 
 User = get_user_model()
 
 
 class RegisterView(APIView):
     """Регистирирует пользователя и отправляет ему код подтверждения."""
-    permission_classes = (AllowAny,)
-
     permission_classes = (AllowAny,)
 
     def post(self, request):

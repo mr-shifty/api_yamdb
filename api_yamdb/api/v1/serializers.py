@@ -1,36 +1,9 @@
-# from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 from rest_framework.validators import UniqueTogetherValidator
-from reviews.models import Category, Genre, Title, Review, Comment
+
+from reviews.models import Category, Comment, Genre, Review, Title
 from users.models import User
 from users.validators import username_me
-
-
-class SignUpSerializer(serializers.ModelSerializer):
-    """Сериалайзер для регистрации.
-       Следит за уникальностью полей email и username,
-       валидирует username"""
-    email = serializers.EmailField(
-        max_length=254, required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())])
-    username = serializers.RegexField(
-        regex=r'^[\w.@+-]',
-        max_length=150,
-        validators=[UniqueValidator(queryset=User.objects.all())])
-
-    class Meta:
-        model = User
-        fields = (
-            'email',
-            'username')
-
-    def validate_username(self, username):
-        if username == 'me':
-            raise serializers.ValidationError(
-                "Использовать слово 'me' для username нельзя."
-            )
-        return username
 
 
 class UserSignUpSerializer(serializers.Serializer):
@@ -82,6 +55,7 @@ class UserSignUpValidationSerializer(serializers.ModelSerializer):
             )
         return email
 
+
 class TokenSerializer(serializers.ModelSerializer):
     """Сериалайзер для получения токена.
        Проверяет наличие username и валидирует
@@ -92,7 +66,7 @@ class TokenSerializer(serializers.ModelSerializer):
         max_length=150,
     )
     confirmation_code = serializers.CharField(
-        required=True)   # CharField, функция из utils генерирует строку
+        required=True)
 
     class Meta:
         model = User

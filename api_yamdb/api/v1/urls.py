@@ -1,14 +1,12 @@
-from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import (
-    CategoryViewSet,
-    GenreViewSet,
-    TitleViewSet,
-    ReviewViewSet,
-    CommentViewSet,
-)
+from django.urls import include, path
+
 from users.views import RegisterView, TokenView, UserViewSet
+
+from .views import (CategoryViewSet, CommentViewSet,
+                    GenreViewSet, ReviewViewSet,
+                    TitleViewSet)
 
 
 app_name = 'api'
@@ -34,5 +32,4 @@ urlpatterns_auth = [
 urlpatterns = [
     path('v1/', include(router.urls)),
     path('v1/auth/', include(urlpatterns_auth)),
-    # path('v1/users/me/', MeView.as_view()),
 ]
