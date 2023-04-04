@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, mixins, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination
 
 from reviews.models import Category, Genre, Title, Review
 from .filters import TitleFilter
@@ -36,7 +37,12 @@ class ListCreateDestroyViewSet(
 class CategoryViewSet(ListCreateDestroyViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    pagination_class = PageNumberPagination
     permission_classes = [IsAdminUserOrReadOnly]
+
+    def get_queryset(self):
+        queryset = self.queryset
+        return queryset
 
 
 class GenreViewSet(ListCreateDestroyViewSet):
