@@ -8,7 +8,7 @@ from .views import (
     ReviewViewSet,
     CommentViewSet,
 )
-from users.views import MeView, RegisterView, TokenView, UserViewSet
+from users.views import RegisterView, TokenView, UserViewSet
 
 
 app_name = 'api'
@@ -34,5 +34,5 @@ urlpatterns_auth = [
 urlpatterns = [
     path('v1/', include(router.urls)),
     path('v1/auth/', include(urlpatterns_auth)),
-    path('v1/users/me/', MeView.as_view()),
+    # path('v1/users/me/', MeView.as_view()),
 ]
