@@ -107,6 +107,7 @@ class Review(models.Model):
                         'author',),
                 name='unique_review'
             )]
+        
 
     def __str__(self):
         return f'{self.text}'
