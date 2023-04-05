@@ -3,6 +3,8 @@ from django.db import models
 
 from users.models import User
 
+TEXT_LEN = 100
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -107,12 +109,12 @@ class Review(models.Model):
             models.UniqueConstraint(
                 fields=['title',
                         'author'],
-                name='unique_review'
+                name='uq_rauthor_title'
             ),
         ]
 
     def __str__(self):
-        return f'{self.text}'
+        return self.text[:TEXT_LEN]
 
 
 class Comment(models.Model):
@@ -141,4 +143,4 @@ class Comment(models.Model):
         verbose_name_plural = 'Комментарии'
 
     def __str__(self):
-        return f'{self.text}'
+        return self.text
