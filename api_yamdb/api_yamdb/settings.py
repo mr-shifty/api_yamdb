@@ -151,5 +151,4 @@ SIMPLE_JWT = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
-
-from_email = os.getenv('CONTACT_EMAIL')
+DEFAULT_FROM_EMAIL = os.getenv('CONTACT_EMAIL')
