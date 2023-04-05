@@ -115,6 +115,7 @@ class UserEditSerializer(UserSerializer):
 
 class AuthorSerializer(serializers.ModelSerializer):
     """Сериализатор для изменения профиля автором"""
+
     class Meta:
         model = User
         fields = (

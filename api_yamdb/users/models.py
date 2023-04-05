@@ -2,18 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-USER = 'user'
-ADMIN = 'admin'
-MODERATOR = 'moderator'
-
-ROLE_CHOICES = [
-    (USER, USER),
-    (ADMIN, ADMIN),
-    (MODERATOR, MODERATOR),
-]
+class RoleChoices(models.TextChoices):
+    USER = 'user'
+    ADMIN = 'admin'
+    MODERATOR = 'moderator'
 
 
 class User(AbstractUser):
+
     username = models.CharField(
         max_length=150,
         unique=True,
@@ -43,8 +39,8 @@ class User(AbstractUser):
     role = models.CharField(
         'роль',
         max_length=20,
-        choices=ROLE_CHOICES,
-        default=USER,
+        choices=RoleChoices.choices,
+        default=RoleChoices.USER,
         blank=True
     )
     confirmation_code = models.CharField(
@@ -54,15 +50,17 @@ class User(AbstractUser):
 
     @property
     def is_user(self):
-        return self.role == USER
+        return self.role == RoleChoices.USER
 
     @property
     def is_admin(self):
-        return self.role == ADMIN
+        return self.role == (
+            RoleChoices.ADMIN or self.is_staff or self.is_superuser
+        )
 
     @property
     def is_moderator(self):
-        return self.role == MODERATOR
+        return self.role == RoleChoices.MODERATOR
 
     class Meta:
         ordering = ('id',)
