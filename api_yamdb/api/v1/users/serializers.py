@@ -91,7 +91,7 @@ class TokenSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """Сериализатор для кастомной модели пользователя"""
+    """Сериализатор для кастомной модели пользователя."""
 
     username = serializers.RegexField(max_length=150,
                                       regex=r'^[\w.@+-]+\Z', required=True)
@@ -114,7 +114,7 @@ class UserEditSerializer(UserSerializer):
 
 
 class AuthorSerializer(serializers.ModelSerializer):
-    """Сериализатор для изменения профиля автором"""
+    """Сериализатор для изменения профиля автором."""
 
     class Meta:
         model = User

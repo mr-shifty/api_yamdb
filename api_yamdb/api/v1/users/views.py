@@ -24,6 +24,7 @@ User = get_user_model()
 
 class RegisterView(APIView):
     """Регистирирует пользователя и отправляет ему код подтверждения."""
+
     permission_classes = (AllowAny,)
 
     def post(self, request):
@@ -47,6 +48,7 @@ class RegisterView(APIView):
 
 class TokenView(APIView):
     """Проверяет код подтверждения и отправляет токен."""
+
     permission_classes = [AllowAny, ]
 
     def post(self, request):
