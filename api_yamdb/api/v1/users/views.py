@@ -12,11 +12,11 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 
 from api.v1.permissions import IsAdminOrSuperUser
-from api.v1.users.serializers import (TokenSerializer, UserEditSerializer,
-                                      UserSerializer, UserSignUpSerializer,
-                                      UserSignUpValidationSerializer)
-
-from api_yamdb.settings import CONTACT_EMAIL
+from api.v1.users.serializers import (
+    TokenSerializer, UserEditSerializer, UserSerializer, UserSignUpSerializer,
+    UserSignUpValidationSerializer,
+)
+from api_yamdb.settings import from_email
 
 
 User = get_user_model()
@@ -41,7 +41,7 @@ class RegisterView(APIView):
         confirmation_code = default_token_generator.make_token(user)
         mail_subject = 'Ваш код подтверждения для получения API токена'
         message = f'Код подтверждения - {confirmation_code}'
-        send_mail(mail_subject, message, CONTACT_EMAIL, (email, ))
+        send_mail(mail_subject, message, from_email, (email, ))
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 

@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from django.shortcuts import get_object_or_404
+
 from django.core.exceptions import ValidationError
+from django.shortcuts import get_object_or_404
 
 from reviews.models import Category, Comment, Genre, Review, Title
 
@@ -8,14 +9,14 @@ from reviews.models import Category, Comment, Genre, Review, Title
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
-        exclude = ['id']
+        fields = ('name', 'slug')
         model = Category
 
 
 class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
-        exclude = ['id']
+        fields = ('name', 'slug')
         model = Genre
 
 
