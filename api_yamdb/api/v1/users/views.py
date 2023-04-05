@@ -16,14 +16,13 @@ from api.v1.users.serializers import (
     TokenSerializer, UserEditSerializer, UserSerializer, UserSignUpSerializer,
     UserSignUpValidationSerializer,
 )
-from api_yamdb.settings import from_email
-
 
 User = get_user_model()
 
 
 class RegisterView(APIView):
     """Регистирирует пользователя и отправляет ему код подтверждения."""
+
     permission_classes = (AllowAny,)
 
     def post(self, request):
@@ -41,12 +40,13 @@ class RegisterView(APIView):
         confirmation_code = default_token_generator.make_token(user)
         mail_subject = 'Ваш код подтверждения для получения API токена'
         message = f'Код подтверждения - {confirmation_code}'
-        send_mail(mail_subject, message, from_email, (email, ))
+        send_mail(mail_subject, message, None, (email, ))
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class TokenView(APIView):
     """Проверяет код подтверждения и отправляет токен."""
+
     permission_classes = [AllowAny, ]
 
     def post(self, request):
