@@ -9,14 +9,14 @@ from reviews.models import Category, Comment, Genre, Review, Title
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
-        exclude = ['id']
+        fields = ('name', 'slug')
         model = Category
 
 
 class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
-        exclude = ['id']
+        fields = ('name', 'slug')
         model = Genre
 
 
