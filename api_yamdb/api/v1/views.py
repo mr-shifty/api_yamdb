@@ -1,7 +1,8 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, mixins, viewsets
-from rest_framework.pagination import (LimitOffsetPagination,
-                                       PageNumberPagination)
+from rest_framework.pagination import (
+    LimitOffsetPagination, PageNumberPagination,
+)
 
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404
@@ -10,9 +11,10 @@ from reviews.models import Category, Genre, Review, Title
 
 from .filters import TitleFilter
 from .permissions import IsAdminModeratorOwnerOrReadOnly, IsAdminUserOrReadOnly
-from .serializers import (CategorySerializer, CommentSerializer,
-                          GenreSerializer, ReviewSerializer,
-                          TitleSerializer)
+from .serializers import (
+    CategorySerializer, CommentSerializer, GenreSerializer, ReviewSerializer,
+    TitleSerializer,
+)
 
 
 class ListCreateDestroyViewSet(

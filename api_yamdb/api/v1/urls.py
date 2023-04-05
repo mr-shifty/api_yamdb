@@ -4,9 +4,9 @@ from django.urls import include, path
 
 from api.v1.users.views import RegisterView, TokenView, UserViewSet
 
-from .views import (CategoryViewSet, CommentViewSet,
-                    GenreViewSet, ReviewViewSet,
-                    TitleViewSet)
+from .views import (
+    CategoryViewSet, CommentViewSet, GenreViewSet, ReviewViewSet, TitleViewSet,
+)
 
 
 app_name = 'api'
