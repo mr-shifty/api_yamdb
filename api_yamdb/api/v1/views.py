@@ -34,10 +34,6 @@ class CategoryViewSet(ListCreateDestroyViewSet):
     pagination_class = PageNumberPagination
     permission_classes = [IsAdminUserOrReadOnly]
 
-    def get_queryset(self):
-        queryset = self.queryset
-        return queryset
-
 
 class GenreViewSet(ListCreateDestroyViewSet):
     queryset = Genre.objects.all()
@@ -47,7 +43,8 @@ class GenreViewSet(ListCreateDestroyViewSet):
 
 class TitleViewSet(viewsets.ModelViewSet):
     queryset = Title.objects.annotate(
-        rating=Avg('reviews__score')).order_by('rating')
+        rating=Avg('reviews__score')).order_by('rating').select_related(
+            'category').prefetch_related('genre')
     serializer_class = TitleSerializer
     permission_classes = [IsAdminUserOrReadOnly]
     pagination_class = LimitOffsetPagination
